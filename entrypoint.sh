@@ -28,21 +28,22 @@ case ${PDNS_API_KEY} in
 	*)
 		echo "API Key used";
 
-		grep -q "^api=" ${PDNS_CONFIG_FILE} || echo "api=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^api=" ${PDNS_CONFIG_FILE} || echo "api=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^api=)(.*)/\1yes/g" ${PDNS_CONFIG_FILE};
-		grep -q "^api-key=" ${PDNS_CONFIG_FILE} || echo "api-key=\n" | tee --append ${PDNS_CONFIG_FILE};
+
+		grep -q "^api-key=" ${PDNS_CONFIG_FILE} || echo "api-key=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^api-key=)(.*)/\1${PDNS_API_KEY}/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^webserver=" ${PDNS_CONFIG_FILE} || echo "webserver=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^webserver=" ${PDNS_CONFIG_FILE} || echo "webserver=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^webserver=)(.*)/\1yes/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^webserver-address=" ${PDNS_CONFIG_FILE} || echo "webserver-address=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^webserver-address=" ${PDNS_CONFIG_FILE} || echo "webserver-address=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^webserver-address=)(.*)/\10\.0\.0\.0/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^webserver-port=" ${PDNS_CONFIG_FILE} || echo "webserver-port=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^webserver-port=" ${PDNS_CONFIG_FILE} || echo "webserver-port=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^webserver-port=)(.*)/\18081/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^webserver-allow-from=" ${PDNS_CONFIG_FILE} || echo "webserver-allow-from=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^webserver-allow-from=" ${PDNS_CONFIG_FILE} || echo "webserver-allow-from=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^webserver-allow-from=)(.*)/\10\.0\.0\.0\/0/g" ${PDNS_CONFIG_FILE};
 
 
@@ -54,18 +55,18 @@ case ${PDNS_BACKEND} in
   mysql)
     echo "MySQL backend, configuring...";
 		
-		grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^launch=)(.*)/\1g${PDNS_BACKEND}/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^gmysql-host=" ${PDNS_CONFIG_FILE} || echo "gmysql-host=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^gmysql-host=" ${PDNS_CONFIG_FILE} || echo "gmysql-host=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^gmysql-host=)(.*)/\1${MYSQL_HOST}/g" ${PDNS_CONFIG_FILE};
-		grep -q "^gmysql-port=" ${PDNS_CONFIG_FILE} || echo "gmysql-port=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^gmysql-port=" ${PDNS_CONFIG_FILE} || echo "gmysql-port=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^gmysql-port=)(.*)/\1${MYSQL_PORT}/g" ${PDNS_CONFIG_FILE};
-		grep -q "^gmysql-user=" ${PDNS_CONFIG_FILE} || echo "gmysql-user=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^gmysql-user=" ${PDNS_CONFIG_FILE} || echo "gmysql-user=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^gmysql-user=)(.*)/\1${MYSQL_USER}/g" ${PDNS_CONFIG_FILE};
-		grep -q "^gmysql-dbname=" ${PDNS_CONFIG_FILE} || echo "gmysql-dbname=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^gmysql-dbname=" ${PDNS_CONFIG_FILE} || echo "gmysql-dbname=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^gmysql-dbname=)(.*)/\1${MYSQL_NAME}/g" ${PDNS_CONFIG_FILE};
-		grep -q "^gmysql-password=" ${PDNS_CONFIG_FILE} || echo "gmysql-password=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^gmysql-password=" ${PDNS_CONFIG_FILE} || echo "gmysql-password=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^gmysql-password=)(.*)/\1${MYSQL_PASSWORD}/g" ${PDNS_CONFIG_FILE};
 
 
@@ -73,51 +74,17 @@ case ${PDNS_BACKEND} in
   sqlite3)
     echo "SQLite3 backend, configuring...";
 
-		grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE};
+		grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
  		sed -i -E "s/(^launch=)(.*)/\1g${PDNS_BACKEND}/g" ${PDNS_CONFIG_FILE};
 
-		grep -q "^gsqlite3-database=" ${PDNS_CONFIG_FILE} || echo "gsqlite3-database=\n" | tee --append ${PDNS_CONFIG_FILE};
- 		sed -i -E "s/(^gsqlite3-database=)(.*)/\1${SQLITE3_PATH}/g" ${PDNS_CONFIG_FILE};
+		grep -q "^gsqlite3-database=" ${PDNS_CONFIG_FILE} || echo "gsqlite3-database=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+ 		sed -i -E "s,(^gsqlite3-database=)(.*),\1${SQLITE3_PATH},g" ${PDNS_CONFIG_FILE}; # don't use / as delimiter because of path string
 
     ;;   
   *)
 		echo "No backend or backend not supported, please mount your own pdns.conf";
     ;;
 esac
-
-
-
-#ZAMMAD_SERVER_NAME=${ZAMMAD_SERVER_NAME:-}
-
-#POSTFIX_MYHOSTNAME=${POSTFIX_MYHOSTNAME:-}
-#POSTFIX_RELAY_HOST=${POSTFIX_RELAY_HOST:-}
-#POSTFIX_RELAY_USER=${POSTFIX_RELAY_USER:-}
-#POSTFIX_RELAY_PASSWORD=${POSTFIX_RELAY_PASSWORD:-}
-
-#sudo -HEu zammad sed 's,{{DB_HOST}},'"${DB_HOST}"',g' -i config/database.yml
-#sudo -HEu zammad sed 's,{{DB_USER}},'"${DB_USER}"',g' -i config/database.yml
-#sudo -HEu zammad sed 's,{{DB_NAME}},'"${DB_NAME}"',g' -i config/database.yml
-#sudo -HEu zammad sed 's,{{DB_PASSWORD}},'"${DB_PASSWORD}"',g' -i config/database.yml
-#sed 's,{{ZAMMAD_SERVER_NAME}},'"${ZAMMAD_SERVER_NAME}"',g' -i /etc/nginx/sites-available/zammad.conf
-
-#if [ -n "${POSTFIX_RELAY_USER}" ] &&  [ -n "${POSTFIX_RELAY_PASSWORD}" ] ; then
-#    echo "${POSTFIX_RELAY_HOST}		${POSTFIX_RELAY_USER}:${POSTFIX_RELAY_PASSWORD}" > /etc/postfix/sasl/saslpass
-#    cd /etc/postfix/sasl/
-#    postmap saslpass
-#    postconf -e "smtp_sasl_password_maps = hash:/etc/postfix/sasl/saslpass"
-#fi
-
-#if [ -n "${POSTFIX_MYHOSTNAME}" ]; then
-#    postconf -e "myhostname = ${POSTFIX_MYHOSTNAME}"
-#fi
-
-#if [ -n "${POSTFIX_RELAY_HOST}" ]; then
-#    postconf -e "relayhost = ${POSTFIX_RELAY_HOST}"
-#fi
-
-#postconf -e "smtp_sasl_auth_enable = yes"
-#postconf -e "smtp_sasl_security_options = noanonymous"
-#postconf -e "smtp_use_tls = yes"
 
 
 
@@ -141,7 +108,7 @@ appStart () {
 			;;
 		sqlite3)
 			echo "SQLite3 backend, starting PowerDNS server...";
-
+			exec /usr/sbin/pdns_server --daemon=no --guardian=no --loglevel=9
 		
 			;;   
 		*)
@@ -176,7 +143,7 @@ appInit () {
 			if [ $? -ne 0 ]; then
   			echo "Error by connecting MySQL database, could not initialize."
 			else
-				/usr/bin/mysql --host="${MYSQL_HOST}" --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --port=${MYSQL_PORT} < /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
+				/usr/bin/mysql --host="${MYSQL_HOST}" --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --port=${MYSQL_PORT} ${MYSQL_NAME} < /usr/share/pdns-backend-mysql/schema/schema.mysql.sql
 				echo "ok? :";
 				echo $?
 			fi
@@ -184,8 +151,10 @@ appInit () {
 			;;
 		sqlite3)
 			echo "SQLite3 backend, initializing...";
-
-		
+			cat /usr/share/pdns-backend-sqlite3/schema/schema.sqlite3.sql | /usr/bin/sqlite3 ${SQLITE3_PATH}
+			echo "ok? :";
+			echo $?
+			
 			;;   
 		*)
 			echo "No backend or backend not supported, doing nothing...";

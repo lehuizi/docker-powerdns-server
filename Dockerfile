@@ -29,7 +29,8 @@ RUN apt-get update \
 RUN apt install -y pdns-server pdns-backend-sqlite3 pdns-backend-mysql mysql-client
 
 # bind etc., remove later! 
-RUN apt install -y dnsutils iproute2
+RUN apt install -y dnsutils iproute2 sqlite3
+
 
 EXPOSE 8081
 EXPOSE 53/udp
