@@ -18,9 +18,6 @@ RUN apt-get update \
         && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
         && apt-get install -y curl git gnupg
 
-#RUN echo "deb [arch=amd64] http://repo.powerdns.com/ubuntu bionic-auth-42 main" > /etc/apt/sources.list.d/pdns.list
-#RUN cd /tmp/ && curl https://repo.powerdns.com/FD380FBB-pub.asc | apt-key add -
-#RUN echo "Package: pdns-*\nPin: origin repo.powerdns.com\nPin-Priority: 600\n" > /etc/apt/preferences.d/pdns
 
 #RUN apt update    
 
