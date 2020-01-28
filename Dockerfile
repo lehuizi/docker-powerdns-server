@@ -28,11 +28,6 @@ RUN apt install -y pdns-server pdns-backend-sqlite3 pdns-backend-mysql mysql-cli
 # bind etc., remove later! 
 RUN apt install -y dnsutils iproute2 sqlite3
 
-#  docker run -it --publish 192.168.10.101:53:53/udp --env PDNS_BACKEND=mysql --env MYSQL_HOST=moabit.geschke.net --env MYSQL_USER=powerdnsuser --env MYSQL_PASSWORD=E7BlCALo3ieX4XfLmjL48rBcvqdwQmlX --env PDNS_API_KEY=euNg0ahB --publish 8081:8081  --name pdns pdns
-
-
-# docker run -it --publish 192.168.10.101:53:53/udp --env PDNS_BACKEND=sqlite3 --env PDNS_API_KEY=euNg0ahB --mount type=bind,source=/home/geschke/pdns/img/data/pdns.db,target=/var/lib/powerdns/pdns.db --publish 8081:8081  --name pdns pdns
-
 
 
 EXPOSE 8081
