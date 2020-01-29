@@ -38,7 +38,7 @@ To download the image run
 
   * `PDNS_API_KEY=none` By setting an API key, the built-in webserver and the HTTP API  will be activated. It runs on 0.0.0.0/0 on port 8081 in the container, so if you don't want to provide the API publically, just omit the port setting on 8081 in the docker run command or the compose file.
 
-Skip modifying these parameters by setting PDNS_AUTOCONFIG to "true".
+Skip modifying these parameters by setting PDNS_AUTOCONFIG to "false".
 
 ## Usage example
 
