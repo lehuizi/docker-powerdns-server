@@ -76,22 +76,22 @@ if ${PDNS_AUTOCONFIG} ; then
     *)
       echo "API Key used";
 
-      grep -q "^api=" ${PDNS_CONFIG_FILE} || echo "api=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^api=" ${PDNS_CONFIG_FILE} || echo "api=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^api=)(.*)/\1yes/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^api-key=" ${PDNS_CONFIG_FILE} || echo "api-key=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^api-key=" ${PDNS_CONFIG_FILE} || echo "api-key=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^api-key=)(.*)/\1${PDNS_API_KEY}/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^webserver=" ${PDNS_CONFIG_FILE} || echo "webserver=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^webserver=" ${PDNS_CONFIG_FILE} || echo "webserver=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^webserver=)(.*)/\1yes/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^webserver-address=" ${PDNS_CONFIG_FILE} || echo "webserver-address=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^webserver-address=" ${PDNS_CONFIG_FILE} || echo "webserver-address=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^webserver-address=)(.*)/\10\.0\.0\.0/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^webserver-port=" ${PDNS_CONFIG_FILE} || echo "webserver-port=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^webserver-port=" ${PDNS_CONFIG_FILE} || echo "webserver-port=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^webserver-port=)(.*)/\18081/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^webserver-allow-from=" ${PDNS_CONFIG_FILE} || echo "webserver-allow-from=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^webserver-allow-from=" ${PDNS_CONFIG_FILE} || echo "webserver-allow-from=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^webserver-allow-from=)(.*)/\10\.0\.0\.0\/0/g" ${PDNS_CONFIG_FILE};
 
 
@@ -103,18 +103,18 @@ if ${PDNS_AUTOCONFIG} ; then
     mysql)
       echo "MySQL backend, configuring...";
       
-      grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^launch=)(.*)/\1g${PDNS_BACKEND}/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^gmysql-host=" ${PDNS_CONFIG_FILE} || echo "gmysql-host=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gmysql-host=" ${PDNS_CONFIG_FILE} || echo "gmysql-host=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^gmysql-host=)(.*)/\1${MYSQL_HOST}/g" ${PDNS_CONFIG_FILE};
-      grep -q "^gmysql-port=" ${PDNS_CONFIG_FILE} || echo "gmysql-port=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gmysql-port=" ${PDNS_CONFIG_FILE} || echo "gmysql-port=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^gmysql-port=)(.*)/\1${MYSQL_PORT}/g" ${PDNS_CONFIG_FILE};
-      grep -q "^gmysql-user=" ${PDNS_CONFIG_FILE} || echo "gmysql-user=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gmysql-user=" ${PDNS_CONFIG_FILE} || echo "gmysql-user=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^gmysql-user=)(.*)/\1${MYSQL_USER}/g" ${PDNS_CONFIG_FILE};
-      grep -q "^gmysql-dbname=" ${PDNS_CONFIG_FILE} || echo "gmysql-dbname=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gmysql-dbname=" ${PDNS_CONFIG_FILE} || echo "gmysql-dbname=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^gmysql-dbname=)(.*)/\1${MYSQL_NAME}/g" ${PDNS_CONFIG_FILE};
-      grep -q "^gmysql-password=" ${PDNS_CONFIG_FILE} || echo "gmysql-password=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gmysql-password=" ${PDNS_CONFIG_FILE} || echo "gmysql-password=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^gmysql-password=)(.*)/\1${MYSQL_PASSWORD}/g" ${PDNS_CONFIG_FILE};
 
 
@@ -122,10 +122,10 @@ if ${PDNS_AUTOCONFIG} ; then
     sqlite3)
       echo "SQLite3 backend, configuring...";
 
-      grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^launch=" ${PDNS_CONFIG_FILE} || echo "launch=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s/(^launch=)(.*)/\1g${PDNS_BACKEND}/g" ${PDNS_CONFIG_FILE};
 
-      grep -q "^gsqlite3-database=" ${PDNS_CONFIG_FILE} || echo "gsqlite3-database=\n" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+      grep -q "^gsqlite3-database=" ${PDNS_CONFIG_FILE} || echo "gsqlite3-database=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
       sed -i -E "s,(^gsqlite3-database=)(.*),\1${SQLITE3_PATH},g" ${PDNS_CONFIG_FILE}; # don't use / as delimiter because of path string
 
       ;;   
