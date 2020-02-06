@@ -4,7 +4,6 @@
 [![Version](https://images.microbadger.com/badges/version/geschke/powerdns-server.svg)](https://microbadger.com/images/geschke/powerdns-server)
 [![Docker Automated build](https://img.shields.io/docker/cloud/build/geschke/powerdns-server)](https://hub.docker.com/r/geschke/powerdns-server)
 
-
 This is a Docker image with PowerDNS server with MySQL/MariaDB and SQLite3 support.
 
 ## Usage
@@ -46,7 +45,6 @@ tbd
 
 ## Credits
 
-
 This image is based on the official Ubuntu image, the Ubuntu PowerDNS packages and uses
 some snippets of the following Docker images:
 
@@ -54,5 +52,3 @@ some snippets of the following Docker images:
 * https://github.com/docker-library/mariadb/blob/master/10.4/docker-entrypoint.sh
 
 Thank you all!
-
-
