@@ -20,6 +20,9 @@ To download the image run
 
   * `PDNS_BACKEND=none` Choose between `mysql` and `sqlite3`. The default is `none`, so you can provide your own configuration by mounting pdns.conf into
   * `PDNS_AUTOCONFIG=true`
+  * `PDNS_LOCAL_ADDRESS=(empty)` Local address to bind to. If this variable is not set, the default entry in the config file will be used.
+  * `PDNS_LOCAL_PORT=(empty)` Local port to bind to. If this variable is not set, the default entry in the config file will be used.
+
 
 * SQLite3 settings
 

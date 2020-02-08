@@ -43,10 +43,15 @@ file_env 'PDNS_BACKEND'
 file_env 'SQLITE3_PATH'
 file_env 'PDNS_API_KEY'
 file_env 'PDNS_AUTOCONFIG'
+file_env 'PDNS_LOCAL_ADDRESS'
+file_env 'PDNS_LOCAL_PORT'
 
 
 PDNS_BACKEND=${PDNS_BACKEND:-none}
 PDNS_AUTOCONFIG=${PDNS_AUTOCONFIG:-true}
+PDNS_LOCAL_ADDRESS=${PDNS_LOCAL_ADDRESS:-}
+PDNS_LOCAL_PORT=${PDNS_LOCAL_PORT:-}
+
 
 MYSQL_HOST=${MYSQL_HOST:-localhost}
 MYSQL_PORT=${MYSQL_PORT:-3306}
@@ -133,6 +138,27 @@ if ${PDNS_AUTOCONFIG} ; then
       echo "No backend or backend not supported, please mount your own pdns.conf";
       ;;
   esac
+fi
+
+
+if [[ ! -z "$PDNS_LOCAL_ADDRESS" ]] ; then
+
+    grep -q "^local-address=" ${PDNS_CONFIG_FILE} || echo "local-address=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\./\\\./g')"
+    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\,/\\\,/g')"
+    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's,\/,\\\/,g')"
+    sed -i -E "s,(^local-address=)(.*),\1${PDNS_LOCAL_ADDRESS},g" ${PDNS_CONFIG_FILE};
+
+  fi
+
+  if [[ ! -z "$PDNS_LOCAL_PORT" ]] ; then
+
+    grep -q "^local-address=" ${PDNS_CONFIG_FILE} || echo "local-port=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\./\\\./g')"
+    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\,/\\\,/g')"
+    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's,\/,\\\/,g')"
+    sed -i -E "s,(^local-port=)(.*),\1${PDNS_LOCAL_PORT},g" ${PDNS_CONFIG_FILE};
+
 fi
 
 appCheck () {
