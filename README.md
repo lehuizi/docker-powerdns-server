@@ -22,7 +22,13 @@ To download the image run
   * `PDNS_AUTOCONFIG=true`
   * `PDNS_LOCAL_ADDRESS=(empty)` Local address to bind to. If this variable is not set, the default entry in the config file will be used.
   * `PDNS_LOCAL_PORT=(empty)` Local port to bind to. If this variable is not set, the default entry in the config file will be used.
-
+  * `PDNS_MASTER=(empty)` Default value of `master` setting. See PowerDNS documentation.
+  * `PDNS_SLAVE=(empty)` Default value of `slave` setting. See PowerDNS documentation.
+  * `PDNS_ALLOW_AXFR_IPS=(empty)` Default value of `allow-axfr-ips` setting. See PowerDNS documentation.
+  * `PDNS_ALLOW_DNSUPDATE_FROM=(empty)` Default value of `allow-dnsupdate-from` setting. See PowerDNS documentation.
+  * `PDNS_ALLOW_NOTIFY_FROM=(empty)` Default value of `allow-notify-from` setting. See PowerDNS documentation.
+  * `PDNS_ALLOW_UNSIGNED_NOTIFY=(empty)` Default value of `allow-unsigned-notify` setting. See PowerDNS documentation.
+  * `PDNS_DNSUPDATE=(empty)` Default value of `dnsupdate` setting. See PowerDNS documentation.
 
 * SQLite3 settings
 

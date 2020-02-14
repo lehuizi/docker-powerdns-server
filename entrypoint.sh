@@ -45,12 +45,27 @@ file_env 'PDNS_API_KEY'
 file_env 'PDNS_AUTOCONFIG'
 file_env 'PDNS_LOCAL_ADDRESS'
 file_env 'PDNS_LOCAL_PORT'
+file_env 'PDNS_MASTER'
+file_env 'PDNS_SLAVE'
+file_env 'PDNS_ALLOW_AXFR_IPS'
+file_env 'PDNS_ALLOW_DNSUPDATE_FROM'
+file_env 'PDNS_ALLOW_NOTIFY_FROM'
+file_env 'PDNS_ALLOW_UNSIGNED_NOTIFY'
+file_env 'PDNS_DNSUPDATE'
 
 
 PDNS_BACKEND=${PDNS_BACKEND:-none}
 PDNS_AUTOCONFIG=${PDNS_AUTOCONFIG:-true}
-PDNS_LOCAL_ADDRESS=${PDNS_LOCAL_ADDRESS:-}
-PDNS_LOCAL_PORT=${PDNS_LOCAL_PORT:-}
+PDNS_LOCAL_ADDRESS=${PDNS_LOCAL_ADDRESS:-} # IP
+PDNS_LOCAL_PORT=${PDNS_LOCAL_PORT:-} # port
+PDNS_MASTER=${PDNS_MASTER:-} # boolean
+PDNS_SLAVE=${PDNS_SLAVE:-} # boolean
+PDNS_ALLOW_AXFR_IPS=${PDNS_ALLOW_AXFR_IPS:-} # IP ranges
+PDNS_ALLOW_DNSUPDATE_FROM=${PDNS_ALLOW_DNSUPDATE_FROM:-} # IP ranges
+PDNS_ALLOW_NOTIFY_FROM=${PDNS_ALLOW_NOTIFY_FROM:-} # IP ranges
+PDNS_ALLOW_UNSIGNED_NOTIFY=${PDNS_ALLOW_UNSIGNED_NOTIFY:-} # boolean
+PDNS_DNSUPDATE=${PDNS_DNSUPDATE:-} # boolean
+
 
 
 MYSQL_HOST=${MYSQL_HOST:-localhost}
@@ -143,23 +158,83 @@ fi
 
 if [[ ! -z "$PDNS_LOCAL_ADDRESS" ]] ; then
 
-    grep -q "^local-address=" ${PDNS_CONFIG_FILE} || echo "local-address=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
-    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\./\\\./g')"
-    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\,/\\\,/g')"
-    PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's,\/,\\\/,g')"
-    sed -i -E "s,(^local-address=)(.*),\1${PDNS_LOCAL_ADDRESS},g" ${PDNS_CONFIG_FILE};
-
-  fi
-
-  if [[ ! -z "$PDNS_LOCAL_PORT" ]] ; then
-
-    grep -q "^local-port=" ${PDNS_CONFIG_FILE} || echo "local-port=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
-    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\./\\\./g')"
-    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\,/\\\,/g')"
-    PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's,\/,\\\/,g')"
-    sed -i -E "s,(^local-port=)(.*),\1${PDNS_LOCAL_PORT},g" ${PDNS_CONFIG_FILE};
+  grep -q "^local-address=" ${PDNS_CONFIG_FILE} || echo "local-address=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\./\\\./g')"
+  PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's/\,/\\\,/g')"
+  PDNS_LOCAL_ADDRESS="$(echo $PDNS_LOCAL_ADDRESS | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^local-address=)(.*),\1${PDNS_LOCAL_ADDRESS},g" ${PDNS_CONFIG_FILE};
 
 fi
+
+if [[ ! -z "$PDNS_LOCAL_PORT" ]] ; then
+
+  grep -q "^local-port=" ${PDNS_CONFIG_FILE} || echo "local-port=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\./\\\./g')"
+  PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's/\,/\\\,/g')"
+  PDNS_LOCAL_PORT="$(echo $PDNS_LOCAL_PORT | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^local-port=)(.*),\1${PDNS_LOCAL_PORT},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_ALLOW_AXFR_IPS" ]] ; then
+
+  grep -q "^allow-axfr-ips=" ${PDNS_CONFIG_FILE} || echo "allow-axfr-ips=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_ALLOW_AXFR_IPS="$(echo $PDNS_ALLOW_AXFR_IPS | sed 's/\./\\\./g')"
+  PDNS_ALLOW_AXFR_IPS="$(echo $PDNS_ALLOW_AXFR_IPS | sed 's/\,/\\\,/g')"
+  PDNS_ALLOW_AXFR_IPS="$(echo $PDNS_ALLOW_AXFR_IPS | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^allow-axfr-ips=)(.*),\1${PDNS_ALLOW_AXFR_IPS},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_ALLOW_DNSUPDATE_FROM" ]] ; then
+
+  grep -q "^allow-dnsupdate-from=" ${PDNS_CONFIG_FILE} || echo "allow-dnsupdate-from=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_ALLOW_DNSUPDATE_FROM="$(echo $PDNS_ALLOW_DNSUPDATE_FROM | sed 's/\./\\\./g')"
+  PDNS_ALLOW_DNSUPDATE_FROM="$(echo $PDNS_ALLOW_DNSUPDATE_FROM | sed 's/\,/\\\,/g')"
+  PDNS_ALLOW_DNSUPDATE_FROM="$(echo $PDNS_ALLOW_DNSUPDATE_FROM | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^allow-dnsupdate-from=)(.*),\1${PDNS_ALLOW_DNSUPDATE_FROM},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_ALLOW_NOTIFY_FROM" ]] ; then
+
+  grep -q "^allow-notify-from=" ${PDNS_CONFIG_FILE} || echo "allow-notify-from=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_ALLOW_NOTIFY_FROM="$(echo $PDNS_ALLOW_NOTIFY_FROM | sed 's/\./\\\./g')"
+  PDNS_ALLOW_NOTIFY_FROM="$(echo $PDNS_ALLOW_NOTIFY_FROM | sed 's/\,/\\\,/g')"
+  PDNS_ALLOW_NOTIFY_FROM="$(echo $PDNS_ALLOW_NOTIFY_FROM | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^allow-notify-from=)(.*),\1${PDNS_ALLOW_NOTIFY_FROM},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+
+if [[ ! -z "$PDNS_MASTER" ]] ; then
+
+  grep -q "^master=" ${PDNS_CONFIG_FILE} || echo "master=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^master=)(.*),\1${PDNS_MASTER},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_SLAVE" ]] ; then
+
+  grep -q "^slave=" ${PDNS_CONFIG_FILE} || echo "slave=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^slave=)(.*),\1${PDNS_SLAVE},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_ALLOW_UNSIGNED_NOTIFY" ]] ; then
+
+  grep -q "^allow-unsigned-notify=" ${PDNS_CONFIG_FILE} || echo "allow-unsigned-notify=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^allow-unsigned-notify=)(.*),\1${PDNS_ALLOW_UNSIGNED_NOTIFY},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_DNSUPDATE" ]] ; then
+
+  grep -q "^dnsupdate=" ${PDNS_CONFIG_FILE} || echo "dnsupdate=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^dnsupdate=)(.*),\1${PDNS_DNSUPDATE},g" ${PDNS_CONFIG_FILE};
+
+fi
+
 
 appCheck () {
   echo "Check PowerDNS database..."
