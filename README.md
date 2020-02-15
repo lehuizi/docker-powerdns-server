@@ -60,4 +60,6 @@ some snippets of the following Docker images:
 * https://github.com/psi-4ward/docker-powerdns
 * https://github.com/docker-library/mariadb/blob/master/10.4/docker-entrypoint.sh
 
+The script wait-for-it.sh is provided by https://github.com/vishnubob/wait-for-it/blob/master/wait-for-it.sh 
+
 Thank you all!
