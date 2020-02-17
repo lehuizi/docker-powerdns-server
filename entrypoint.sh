@@ -52,7 +52,7 @@ file_env 'PDNS_ALLOW_DNSUPDATE_FROM'
 file_env 'PDNS_ALLOW_NOTIFY_FROM'
 file_env 'PDNS_ALLOW_UNSIGNED_NOTIFY'
 file_env 'PDNS_DNSUPDATE'
-
+file_env 'PDNS_TRUSTED_NOTIFICATION_PROXY'
 
 PDNS_BACKEND=${PDNS_BACKEND:-none}
 PDNS_AUTOCONFIG=${PDNS_AUTOCONFIG:-true}
@@ -64,6 +64,7 @@ PDNS_ALLOW_AXFR_IPS=${PDNS_ALLOW_AXFR_IPS:-} # IP ranges
 PDNS_ALLOW_DNSUPDATE_FROM=${PDNS_ALLOW_DNSUPDATE_FROM:-} # IP ranges
 PDNS_ALLOW_NOTIFY_FROM=${PDNS_ALLOW_NOTIFY_FROM:-} # IP ranges
 PDNS_ALLOW_UNSIGNED_NOTIFY=${PDNS_ALLOW_UNSIGNED_NOTIFY:-} # boolean
+PDNS_TRUSTED_NOTIFICATION_PROXY=${PDNS_TRUSTED_NOTIFICATION_PROXY:-} # String / IP ranges
 PDNS_DNSUPDATE=${PDNS_DNSUPDATE:-} # boolean
 
 
@@ -203,6 +204,16 @@ if [[ ! -z "$PDNS_ALLOW_NOTIFY_FROM" ]] ; then
   PDNS_ALLOW_NOTIFY_FROM="$(echo $PDNS_ALLOW_NOTIFY_FROM | sed 's/\,/\\\,/g')"
   PDNS_ALLOW_NOTIFY_FROM="$(echo $PDNS_ALLOW_NOTIFY_FROM | sed 's,\/,\\\/,g')"
   sed -i -E "s,(^allow-notify-from=)(.*),\1${PDNS_ALLOW_NOTIFY_FROM},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_TRUSTED_NOTIFICATION_PROXY" ]] ; then
+
+  grep -q "^trusted-notification-proxy=" ${PDNS_CONFIG_FILE} || echo "trusted-notification-proxy=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  PDNS_TRUSTED_NOTIFICATION_PROXY="$(echo $PDNS_TRUSTED_NOTIFICATION_PROXY | sed 's/\./\\\./g')"
+  PDNS_TRUSTED_NOTIFICATION_PROXY="$(echo $PDNS_TRUSTED_NOTIFICATION_PROXY | sed 's/\,/\\\,/g')"
+  PDNS_TRUSTED_NOTIFICATION_PROXY="$(echo $PDNS_TRUSTED_NOTIFICATION_PROXY | sed 's,\/,\\\/,g')"
+  sed -i -E "s,(^trusted-notification-proxy=)(.*),\1${PDNS_TRUSTED_NOTIFICATION_PROXY},g" ${PDNS_CONFIG_FILE};
 
 fi
 
