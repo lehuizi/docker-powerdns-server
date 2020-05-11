@@ -2,7 +2,7 @@ FROM ubuntu:focal
 
 LABEL maintainer="Ralf Geschke <ralf@kuerbis.org>"
 
-LABEL last_changed="2020-03-24"
+LABEL last_changed="2020-05-11"
 
 
 # necessary to set default timezone Etc/UTC
