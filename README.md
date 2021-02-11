@@ -1,8 +1,8 @@
-# geschke/powerdns-server
+# lehuizi/powerdns-server
 
-[![Image Size](https://images.microbadger.com/badges/image/geschke/powerdns-server.svg)](https://microbadger.com/images/geschke/powerdns-server)
-[![Version](https://images.microbadger.com/badges/version/geschke/powerdns-server.svg)](https://microbadger.com/images/geschke/powerdns-server)
-[![Docker Automated build](https://img.shields.io/docker/cloud/build/geschke/powerdns-server)](https://hub.docker.com/r/geschke/powerdns-server)
+[![Image Size](https://images.microbadger.com/badges/image/lehuizi/powerdns-server.svg)](https://microbadger.com/images/lehuizi/powerdns-server)
+[![Version](https://images.microbadger.com/badges/version/lehuizi/powerdns-server.svg)](https://microbadger.com/images/lehuizi/powerdns-server)
+[![Docker Automated build](https://img.shields.io/docker/cloud/build/lehuizi/powerdns-server)](https://hub.docker.com/r/lehuizi/powerdns-server)
 
 This is a Docker image with PowerDNS server with MySQL/MariaDB and SQLite3 support.
 
@@ -10,7 +10,7 @@ This is a Docker image with PowerDNS server with MySQL/MariaDB and SQLite3 suppo
 
 To download the image run
 
-    docker pull geschke/powerdns-server
+    docker pull lehuizi/powerdns-server
 
 ## Configuration
 
