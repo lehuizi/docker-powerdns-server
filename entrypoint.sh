@@ -53,6 +53,8 @@ file_env 'PDNS_ALLOW_NOTIFY_FROM'
 file_env 'PDNS_ALLOW_UNSIGNED_NOTIFY'
 file_env 'PDNS_DNSUPDATE'
 file_env 'PDNS_TRUSTED_NOTIFICATION_PROXY'
+file_env 'PDNS_DEFAULT_SOA_MAIL'
+file_env 'PDNS_DEFAULT_SOA_NAME'
 
 PDNS_BACKEND=${PDNS_BACKEND:-none}
 PDNS_AUTOCONFIG=${PDNS_AUTOCONFIG:-true}
@@ -66,6 +68,8 @@ PDNS_ALLOW_NOTIFY_FROM=${PDNS_ALLOW_NOTIFY_FROM:-} # IP ranges
 PDNS_ALLOW_UNSIGNED_NOTIFY=${PDNS_ALLOW_UNSIGNED_NOTIFY:-} # boolean
 PDNS_TRUSTED_NOTIFICATION_PROXY=${PDNS_TRUSTED_NOTIFICATION_PROXY:-} # String / IP ranges
 PDNS_DNSUPDATE=${PDNS_DNSUPDATE:-} # boolean
+PDNS_DEFAULT_SOA_MAIL=${PDNS_DEFAULT_SOA_MAIL:-}
+PDNS_DEFAULT_SOA_NAME=${PDNS_DEFAULT_SOA_NAME:-}
 
 
 
@@ -243,6 +247,20 @@ if [[ ! -z "$PDNS_DNSUPDATE" ]] ; then
 
   grep -q "^dnsupdate=" ${PDNS_CONFIG_FILE} || echo "dnsupdate=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
   sed -i -E "s,(^dnsupdate=)(.*),\1${PDNS_DNSUPDATE},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_DEFAULT_SOA_MAIL" ]] ; then
+
+  grep -q "^default-soa-mail=" ${PDNS_CONFIG_FILE} || echo "default-soa-mail=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^default-soa-mail=)(.*),\1${PDNS_DEFAULT_SOA_MAIL},g" ${PDNS_CONFIG_FILE};
+
+fi
+
+if [[ ! -z "$PDNS_DEFAULT_SOA_NAME" ]] ; then
+
+  grep -q "^default-soa-name=" ${PDNS_CONFIG_FILE} || echo "default-soa-name=" | tee --append ${PDNS_CONFIG_FILE} > /dev/null;
+  sed -i -E "s,(^default-soa-name=)(.*),\1${PDNS_DEFAULT_SOA_NAME},g" ${PDNS_CONFIG_FILE};
 
 fi
 
