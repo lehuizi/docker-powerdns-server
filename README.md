@@ -30,6 +30,8 @@ To download the image run
   * `PDNS_ALLOW_UNSIGNED_NOTIFY=(empty)` Default value of `allow-unsigned-notify` setting. See PowerDNS documentation.
   * `PDNS_TRUSTED_NOTIFICATION_PROXY=(empty)` Default value of `trusted-notification-proxy` setting. See PowerDNS documentation.
   * `PDNS_DNSUPDATE=(empty)` Default value of `dnsupdate` setting. See PowerDNS documentation.
+  * `PDNS_DEFAULT_SOA_MAIL` mail address to insert in the SOA record if none set in the backend
+  * `PDNS_DEFAULT_SOA_NAME` name to insert in the SOA record if none set in the backend
 
 * SQLite3 settings
 
